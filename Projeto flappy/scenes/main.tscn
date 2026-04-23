@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://clsauf3lypn50"]
+
+[ext_resource type="Script" uid="uid://c2bchmgutdn01" path="res://scripts/spaceship.gd" id="1_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://cnhqnmrbt5nfc" path="res://assets/nave.png" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://b5xwn1jkwcieb" path="res://scripts/main.gd" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://sgcgyh2qcmoi" path="res://scenes/canvas.gd" id="4_jyhfs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
+size = Vector2(346, 117)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
+size = Vector2(261.33337, 86.66667)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(1152, 3)
+
+[node name="Main" type="Node2D" unique_id=1018455795]
+script = ExtResource("1_sugp2")
+
+[node name="Spaceship" type="CharacterBody2D" parent="." unique_id=341244479]
+position = Vector2(189, 115)
+scale = Vector2(0.75, 0.75)
+script = ExtResource("1_0wfyh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Spaceship" unique_id=2025800642]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_o5qli")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spaceship" unique_id=286596640]
+position = Vector2(0, -1.5)
+scale = Vector2(0.75, 0.75)
+shape = SubResource("RectangleShape2D_0wfyh")
+
+[node name="Area2D" type="Area2D" parent="Spaceship" unique_id=495575884]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spaceship/Area2D" unique_id=2081536173]
+position = Vector2(0, -2.0000305)
+shape = SubResource("RectangleShape2D_sugp2")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Spaceship" unique_id=2090489052]
+
+[node name="Timer" type="Timer" parent="." unique_id=1456523455]
+autostart = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=314821556]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1863885990]
+position = Vector2(576, 1.5)
+shape = SubResource("RectangleShape2D_jyhfs")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=943031458]
+script = ExtResource("4_jyhfs")
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1267456647]
+offset_right = 115.0
+offset_bottom = 23.0
+
+[connection signal="game_over" from="Spaceship" to="." method="_on_spaceship_game_over"]
+[connection signal="area_entered" from="Spaceship/Area2D" to="Spaceship" method="_on_area_2d_area_entered"]
+[connection signal="screen_exited" from="Spaceship/VisibleOnScreenNotifier2D" to="Spaceship" method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
