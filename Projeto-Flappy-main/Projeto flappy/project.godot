@@ -45,4 +45,4 @@ frente={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
-environment/defaults/default_clear_color=Color(0.7454861, 0.85318434, 0.83885646, 1)
+environment/defaults/default_clear_color=Color(0.8547812, 0, 0.1495983, 1)
